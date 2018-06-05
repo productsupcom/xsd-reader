@@ -25,7 +25,7 @@ class UrlUtils
         if ($rel[0] === '#' || $rel[0] === '?') {
             return $base.$rel;
         }
-        
+
         /* fix url file for Windows */
         $base = preg_replace('#^file:\/\/([^/])#', 'file:///\1', $base);
 
@@ -37,6 +37,10 @@ class UrlUtils
 
         /* remove non-directory element from path */
         $path = isset($parts['path']) ? preg_replace('#/[^/]*$#', '', $parts["path"]) : '';
+
+        if (!$path && strpos($base, 'phar://') === 0) {
+            return pathinfo($base, PATHINFO_DIRNAME) . '/' . $rel;
+        }
 
         /* destroy path if relative url points to root */
         if ($rel[0] === '/') {
