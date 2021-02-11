@@ -30,6 +30,10 @@ class UrlUtils
             return $base.$rel;
         }
 
+        if (strpos($base, 'phar://') === 0) {
+            return pathinfo($base, PATHINFO_DIRNAME) . '/' . $rel;
+        }
+
         return static::resolveRelativeUrlAfterEarlyChecks($base, $rel);
     }
 
