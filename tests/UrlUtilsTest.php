@@ -65,6 +65,7 @@ class UrlUtilsTest extends BaseTest
         $this->assertEquals('file:///test', UrlUtils::resolveRelativeUrl('file:///', 'test'));
         /* Assert that any filenames will be stripped from base */
         $this->assertEquals('file:///bar.xsd', UrlUtils::resolveRelativeUrl('file:///foo.xsd', 'bar.xsd'));
+        $this->assertEquals('phar:/bar.xsd', UrlUtils::resolveRelativeUrl('phar:///foo.xsd', 'bar.xsd'));
     }
 
     public function testRegularPaths()
